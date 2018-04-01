@@ -4,8 +4,6 @@
 
 {% block corps %}
 
-   {% include "partials/resultats.html" %}
-
     <h1>{{titre}}</h1>
     {% if resultats %}
         <p>Il y a {{resultats.total}} notices qui répondent à votre requête :</p>
@@ -16,7 +14,7 @@
         </ul>
     <nav aria-label="research-pagination">
       <ul class="pagination">
-        {%- for page in resultats.iter_pages() %}
+        {%- for page in resultats %}
             {% if page %}
 
               {% if page != resultats.page %}

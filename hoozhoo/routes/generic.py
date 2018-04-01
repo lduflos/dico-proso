@@ -259,12 +259,6 @@ def recherche():
     if motclef:
         resultats = Person.query.filter(
             Person.person_name.like("%{}%".format(motclef))
-        ).paginate(page=page, per_page=PERSONNES_PAR_PAGE)
+        ).all()
         titre = "Résultat pour la recherche `" + motclef + "`"
-
-    return render_template(
-        "pages/resultats.html",
-        resultats=resultats,
-        titre=titre,
-        keyword=motclef
-    )
+    return render_template("pages/resultats.html", resultats=resultats, titre=titre)
