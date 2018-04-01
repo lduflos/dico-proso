@@ -234,3 +234,37 @@ def suppression_lien(identifier):
         else:
             flash("La suppression a échoué.", "danger")
             return redirect("/person/" + str(lienUnique.link_person1_id))
+
+
+@app.route("/recherche")
+def recherche():
+    """ Route permettant la recherche plein-texte
+    """
+    # On préfèrera l'utilisation de .get() ici
+    #   qui nous permet d'éviter un if long (if "clef" in dictionnaire and dictonnaire["clef"])
+    motclef = request.args.get("keyword", None)
+    page = request.args.get("page", 1)
+
+    if isinstance(page, str) and page.isdigit():
+        page = int(page)
+    else:
+        page = 1
+
+    # On crée une liste vide de résultat (qui restera vide par défaut
+    #   si on n'a pas de mot clé)
+    resultats = []
+
+    # On fait de même pour le titre de la page
+    titre = "Recherche"
+    if motclef:
+        resultats = Person.query.filter(
+            Person.person_name.like("%{}%".format(motclef))
+        ).paginate(page=page, per_page=PERSONNES_PAR_PAGE)
+        titre = "Résultat pour la recherche `" + motclef + "`"
+
+    return render_template(
+        "pages/resultats.html",
+        resultats=resultats,
+        titre=titre,
+        keyword=motclef
+    )
