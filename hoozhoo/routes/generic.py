@@ -1,5 +1,6 @@
 from flask import render_template, request, flash, redirect
 from ..app import app
+from ..app import db
 from ..modeles.donnees import Person, Link, Relation_type
 from ..modeles.utilisateurs import User
 
@@ -257,8 +258,9 @@ def recherche():
     # On fait de même pour le titre de la page
     titre = "Recherche"
     if motclef:
-        resultats = Person.query.filter(
-            Person.person_name.like("%{}%".format(motclef))
-        ).all()
+        resultats = Person.query.filter(db.or_(Person.person_name.like("%{}%".format(motclef)), 
+            Person.person_firstname.like("%{}%".format(motclef)),
+            Person.person_nickname.like("%{}%".format(motclef)))
+        ).paginate(page=page, per_page=3)
         titre = "Résultat de la recherche : `" + motclef + "`"
     return render_template("pages/resultats.html", resultats=resultats, titre=titre, keyword=motclef)

@@ -8,8 +8,8 @@
     {% if resultats %}
         <p>Il y a {{resultats.total}} notices qui répondent à votre requête :</p>
         <ul>
-            {% for notice in resultats.items %}
-                <li><a href="{{url_for("notice", identifier=personne.person_id)}}">{{personne.person_name}} {{personne.person_firstname}} {{personne.person_nickname}}</a></li>
+            {% for resultat in resultats.items %}
+                <li><a href="{{url_for("resultats")}}">{{Person.person_name}} {{Person.person_firstname}} {{Person.person_nickname}}</a></li>
             {% endfor %}
         </ul>
     <nav aria-label="research-pagination">
