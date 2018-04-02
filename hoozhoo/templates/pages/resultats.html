@@ -6,7 +6,7 @@
 
     <h1>{{titre}}</h1>
     {% if resultats %}
-        <p>Il y a {{resultats.total}} notices qui répondent à votre requête :</p>
+        <p>Il y a {{resultats.total}} notice(s) qui répond(ent) à votre requête :</p>
         <ul>
             {% for resultat in resultats.items %}
                 <li><a href="{{url_for("notice", identifier=resultat.person_id)}}">{{resultat.person_name}} {{resultat.person_firstname}} {{resultat.person_nickname}}</a></li>
@@ -14,7 +14,7 @@
         </ul>
     <nav aria-label="research-pagination">
       <ul class="pagination">
-        {%- for page in resultats %}
+        {%- for page in resultats.iter_pages() %}
             {% if page %}
 
               {% if page != resultats.page %}
