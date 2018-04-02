@@ -260,5 +260,5 @@ def recherche():
         resultats = Person.query.filter(
             Person.person_name.like("%{}%".format(motclef))
         ).all()
-        titre = "Résultat pour la recherche `" + motclef + "`"
-    return render_template("pages/resultats.html", resultats=resultats, titre=titre)
+        titre = "Résultat de la recherche : `" + motclef + "`"
+    return render_template("pages/resultats.html", resultats=resultats, titre=titre, keyword=motclef)

@@ -9,7 +9,7 @@
         <p>Il y a {{resultats.total}} notices qui répondent à votre requête :</p>
         <ul>
             {% for notice in resultats.items %}
-                <li><a href="{{url_for('notice', person_id=personne.person_id)}}">{{personne.person_name}} {{personne.person_firstname}} {{personne.person_nickname}}</a></li>
+                <li><a href="{{url_for("notice", identifier=personne.person_id)}}">{{personne.person_name}} {{personne.person_firstname}} {{personne.person_nickname}}</a></li>
             {% endfor %}
         </ul>
     <nav aria-label="research-pagination">
